@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chili Moisture Content - Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Chili Processing Results</h1>
+        <p><strong>Today's Weight:</strong> {{ weight }} g</p>
+        <p><strong>Remaining Moisture Content:</strong> {{ moisture }}%</p>
+
+        <h3>Extracted Features:</h3>
+        <ul>
+            <li><strong>Mean Hue:</strong> {{ features['mean_hue'] }}</li>
+            <li><strong>Mean Saturation:</strong> {{ features['mean_saturation'] }}</li>
+            <li><strong>Mean Value:</strong> {{ features['mean_value'] }}</li>
+            <li><strong>Contrast:</strong> {{ features['contrast'] }}</li>
+            <li><strong>Correlation:</strong> {{ features['correlation'] }}</li>
+            <li><strong>Entropy:</strong> {{ features['entropy'] }}</li>
+            <li><strong>Area:</strong> {{ features['area'] }}</li>
+            <li><strong>Perimeter:</strong> {{ features['perimeter'] }}</li>
+            <li><strong>Aspect Ratio:</strong> {{ features['aspect_ratio'] }}</li>
+        </ul>
+    </div>
+</body>
+</html>

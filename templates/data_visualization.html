@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Visualization Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #000000;
+        }
+        h1 {
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .chart-box {
+            width: 400px;
+            height: 250px;
+            background: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+        }
+        canvas {
+            width: 100% !important;
+            height: auto !important;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Data Visualization Dashboard</h1>
+
+<div class="chart-container">
+    <div class="chart-box">
+        <canvas id="weightChart"></canvas>
+    </div>
+    <div class="chart-box">
+        <canvas id="moistureChart"></canvas>
+    </div>
+    <div class="chart-box">
+        <canvas id="hueChart"></canvas>
+    </div>
+    <div class="chart-box">
+        <canvas id="saturationChart"></canvas>
+    </div>
+    <div class="chart-box">
+        <canvas id="valueChart"></canvas>
+    </div>
+    <div class="chart-box">
+        <canvas id="contrastChart"></canvas>
+    </div>
+    <div class="chart-box">
+        <canvas id="correlationChart"></canvas>
+    </div>
+    <div class="chart-box">
+        <canvas id="entropyChart"></canvas>
+    </div>
+</div>
+
+<script>
+    // Get data passed from Flask
+    const data = {{ data|tojson }};
+
+    // Generate individual charts for each feature
+    function createChart(ctxId, label, dataValues, color) {
+        const ctx = document.getElementById(ctxId).getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: data.dates,
+                datasets: [{
+                    label: label,
+                    data: dataValues,
+                    borderColor: color,
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { display: true, title: { display: true, text: 'Date'  } },
+                    y: { display: true, title: { display: true, text: label } }
+                }
+            }
+        });
+    }
+
+    // Create charts for each feature
+    createChart('weightChart', 'Weight (g)', data.weights, 'rgba(75, 192, 192, 1)');
+    createChart('moistureChart', 'Moisture Loss Content (%)', data.moisture_loss, 'rgba(255, 99, 132, 1)');
+    createChart('hueChart', 'Mean Hue', data.mean_hue, 'rgba(54, 162, 235, 1)');
+    createChart('saturationChart', 'Mean Saturation', data.mean_saturation, 'rgba(255, 206, 86, 1)');
+    createChart('valueChart', 'Mean Value', data.mean_value, 'rgba(75, 192, 192, 1)');
+    createChart('contrastChart', 'Contrast', data.contrast, 'rgba(153, 102, 255, 1)');
+    createChart('correlationChart', 'Correlation', data.correlation, 'rgba(255, 159, 64, 1)');
+    createChart('entropyChart', 'Entropy', data.entropy, 'rgba(150, 150, 180, 1)');
+</script>
+
+</body>
+</html>

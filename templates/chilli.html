@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chili Seed Length</title>
+</head>
+<style>
+/* Basic Reset and Global Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-image: url('/static/images/red4.jpg');
+    background-size: cover;
+    background-position: left;
+    color: #333;
+    height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #7b7f82;
+    padding-top: 80px;
+    transition: left 0.3s ease;
+    box-shadow: 4px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar a {
+    padding: 15px 20px;
+    text-decoration: none;
+    font-size: 1.1rem;
+    color: #ecf0f1;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.sidebar a:hover {
+    background-color: #34495e;
+}
+
+/* Hamburger Button */
+.hamburger {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 0.5rem;
+    color: #fff;
+    background-color: #e22911;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    z-index: 20;
+    display: inline-block;
+    width: auto;
+}
+
+.hamburger:hover {
+    background-color: #d71212;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+/* Main Container */
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    text-align: center;
+    margin-top: -150px; /* Adjust this value as needed */
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    text-align: left;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #34495e;
+}
+
+input[type="file"], input[type="text"] {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+button {
+    padding: 12px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Results Section */
+.results {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.results h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.results ul li {
+    font-size: 1rem;
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    label, input[type="file"], input[type="text"], button {
+        font-size: 0.9rem;
+    }
+}
+</style>
+<body>
+    <div class="container">
+        <h1>Chilli Seed Length Estimator</h1>
+        <form action="{{ url_for('chilli') }}" method="POST" enctype="multipart/form-data">
+            <label for="image">Upload Image</label>
+            <input type="file" name="image" required>
+            <button type="submit">Upload</button>
+        </form>
+
+        {% if processed_image_path and excel_path %}
+            <h2>Image has been Processed Successfully..</h2>
+            <!-- Fixed image path -->
+            <img src="{{ url_for('static', filename=processed_image_path.replace('\\', '/').split('static/')[-1]) }}" alt="Processed Image" width="300">
+            <br>
+            <a href="{{ url_for('static', filename=processed_image_path.replace('\\', '/').split('static/')[-1]) }}" download class="btn btn-blue" style="display: inline-block; padding: 12px; background-color: #3498db; color: white; border-radius: 4px; text-decoration: none; font-size: 1.1rem; cursor: pointer; transition: background-color 0.3s ease;">Download  Processed Image</a>
+            
+            <br>
+            <br>
+            <a href="{{ url_for('static', filename=excel_path.replace('\\', '/').split('static/')[-1]) }}" download class="btn btn-blue" style="display: inline-block; padding: 12px; background-color: #3498db; color: white; border-radius: 4px; text-decoration: none; font-size: 1.1rem; cursor: pointer; transition: background-color 0.3s ease;">Download Excel</a>
+            <br>
+            <br>
+            <br>
+            <a href="#" onclick="window.history.back();" class="btn btn-blue" style="display: inline-block; padding: 12px; background-color: #3498db; color: white; border-radius: 4px; text-decoration: none; font-size: 1.1rem; cursor: pointer; transition: background-color 0.3s ease;">Back</a>
+        {% endif %}
+    </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chili Tools</title>
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url('/static/images/red4.jpg');
+            background-size: cover;
+            background-position: center;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Card Container */
+        .card-container {
+            display: flex;
+            gap: 20px;
+            max-width: 800px;
+            margin-top: -200px;
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: rgba(18, 115, 213, 0.9);
+            width: 850px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            text-align: center;
+            color: #d01010;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card h2 {
+            font-size: 1.5rem;
+            padding: 15px 0;
+            color: #030507;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="card-container">
+        
+
+        <!-- Red Chili Analyzer Card -->
+
+        <div class="card" onclick="window.location.href='red_chili_analyzer'">
+            <img src="/static/images/red_chilli.jpeg" alt="Red Chili Analyzer">
+            <h2>Red Chili  Image Analyzer</h2>
+        </div>
+
+        <!-- Chili Seed Length Estimator Card -->
+        <!-- Chili Seed Length Estimator Card -->
+        <div class="card" onclick="window.location.href='chilli'">
+            <img src="/static/images/chilli_seed.jpeg" alt="Chili Seed Length Estimator">
+            <h2>Chili Seed Length Estimator</h2>
+        </div>
+        
+        
+</div>
+
+    </div>
+</body>
+</html>

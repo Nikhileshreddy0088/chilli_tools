@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chili Moisture Content</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    
+</head>
+<body>
+    <!-- Hamburger Button -->
+    <button class="hamburger" onclick="toggleSidebar()">☰</button>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <a href="{{ url_for('data_visualization') }}">Data Visualization</a>
+
+        <a href="{{ url_for('download_excel') }}">Download Excel</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Red Chili Image Analyzer</h1>
+        <form action="{{ url_for('red_chili_analyzer') }}" method="POST" enctype="multipart/form-data">
+            <label for="image">Upload Chili Image</label>
+            <input type="file" name="image" id="image" required>
+        
+            <label for="weight">Enter Today's Weight (g)</label>
+            <input type="text" name="weight" id="weight" required>
+        
+            <button type="submit">Upload</button>
+        </form>
+
+        {% if features %}
+    <h2>Chili Processing Results</h2>
+
+    {% if filename %}
+        <h3>Uploaded Image:</h3>
+        <img src="{{ url_for('uploaded_file', filename=filename) }}" alt="Uploaded Image" width="300">
+    {% endif %}
+    
+    <p><strong>Today's Weight:</strong> {{ weight }} g</p>
+    <p><strong>Remaining Moisture:</strong> {{ moisture }}%</p>
+    <p><strong>Moisture Loss Percentage:</strong> {{ moisture_loss }}%</p>
+
+    <h3>Extracted Features:</h3>
+    <ul>
+        {% for feature, value in features.items() %}
+            <li><strong>{{ feature }}:</strong> {{ value }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Data Saved Successfully...</h2>
+
+    <button class="back-button" onclick="goBack()">⬅ Back</button>
+{% else %}
+    <p>No features or data to display. Please check if your image was processed correctly.</p>
+{% endif %}
+
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+        }
+    
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    
+</body>
+</html>
+
