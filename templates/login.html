@@ -15,7 +15,6 @@
 
         body {
             background-image: url('/static/images/red4.jpg');
- 
             background-size: contain;
             background-position: center;
             color: #333;
@@ -82,6 +81,25 @@
             background-color: #2980b9;
         }
 
+        /* Flash Messages */
+        .flash-message {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .flash-message.success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .flash-message.danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .login-container {
@@ -109,6 +127,16 @@
 <body>
     <div class="login-container">
         <h2>Login</h2>
+
+        <!-- Display Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-message {{ messages[0][0] }}">
+                    {{ messages[0][1] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
         <form action="/login" method="POST">
             <div class="input-group">
                 <label for="username">Username:</label>
